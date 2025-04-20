@@ -1,14 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
-  let users = JSON.parse(localStorage.getItem("users")) || [];
-  let form = document.querySelector("form");
+  let users = JSON.parse(localStorage.getItem("users"));
+  let form = document.querySelector(".form");
   let username = document.querySelector("#username");
   let password = document.querySelector("#password");
 
   function login(e) {
     e.preventDefault();
-
-    if (users.length === 0) {
-      toasts("No users found");
+    if (!users) {
+      toast("No users found");
       return;
     }
 
@@ -20,18 +19,19 @@ document.addEventListener("DOMContentLoaded", () => {
     if (findUser) {
       findUser.isLogined = true;
       localStorage.setItem("users", JSON.stringify(users));
-      toasts("User logged in successfully!");
+      toast("User logged in successfully");
       setTimeout(() => {
         window.location.href = "index.html";
       }, 2000);
     } else {
-      toasts("Username or password is incorrect");
+      toast("User or password is incorrect");
+      return;
     }
   }
 
-  function toasts(text) {
+  function toast(text) {
     Toastify({
-      text: text,
+      text: `${text}`,
       duration: 2000,
       gravity: "top",
       position: "right",
@@ -41,9 +41,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }).showToast();
   }
 
-  if (form) {
-    form.addEventListener("submit", login);
-  } else {
-    console.error("Form element not found in the DOM.");
-  }
+  form.addEventListener("submit", login);
 });

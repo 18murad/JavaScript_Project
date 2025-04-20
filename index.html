@@ -1,125 +1,408 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>home</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       type="text/css"
       href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
     />
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css">    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    
-</head>
-<body>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Home</title>
+  </head>
+  <body>
     <div class="container">
-        <div class="row">
-            <nav class="mynavbar">
-                <div class="logo"><h1>Snobella</h1></div>
-                <ul class="nav_list">
-                  <input type="text" class="search-input" placeholder="search...">
-                </ul> 
-                <div class="wrapper">
-                    <button class="username">Username</button>
-                    <div class="dropdown">
-                        <button class="btn btn-light"
-                        type="button"
-                        data-bs-toggle="dropdown">
-                    <i class="fa-solid fa-user"></i>
-                Daxil ol</button>
-                <ul class="dropdown-menu" >
-                    <li>
-                        <a class="dropdown-item register" href="register.html">Register</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item login" href="login.html">Login</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item logout d-none" href="#">Logout</a>
-                    </li>
-                </ul>
-                    </div>
-                    <a class="allproducts" href="wishlist.html">
-                        <i class="fa-regular fa-heart wishlistpageicon"> wishlist</i>
-                    </a>
-                    <a class="allproducts" href="basket.html" class="basketIcon" style="text-decoration: none;"><i class="fa-solid fa-cart-shopping basketpageicon">basket</i>
-                        <sup>0</sup></a>
-           
-              
-                </div>
-             
-            </nav>
-            <div class="sliderContainer">
-              <div class="slides">
-               
-                <div class="slide" >  <div class="handbag">
-                  <div class="handbag-title">
-                      <h3 class="off">30% off</h3>
-                      <h1>Handbag products</h1>
-                      <p>It is a long established fact that a reader will be distracted by the readable content expound the actual teachings of the great explorer  </p>
-                      <a href="./products.html" class="shop">Shop now</a>
-                  </div>
-                  <div class="handbag-image">
-                    <img src="./assets/images/62223108bce29cbb88fecbc3e5cf7f1a.png" alt="">
-                  </div>
-                  
-                </div>
+      <div class="row">
+        <nav class="mynavbar col-lg-12 col-md-12 col-sm-12">
+          <div class="logo">Snobella</div>
+
+          <div class="search-box">
+            <input
+              placeholder="Search all product"
+              type="text"
+              class="search-input"
+            />
+            <button class="btn btn-transparent search-btn">
+              <img src="./assets/icons/search.png" alt="" />
+            </button>
+            <ul class="search-results"></ul>
+          </div>
+
+          <!-- <ul class="nav_list">
+            <li class="nav_list-item"><a href="./admin.html">Admin</a></li>
+          </ul> -->
+          <div class="wrapper">
+            <a href="./admin.html" class="adminClass">Admin</a>
+            <!-- <button class="username">Username</button> -->
+            <div class="dropdown">
+              <button
+                class="btn btn-white newB"
+                type="button"
+                data-bs-toggle="dropdown"
+              >
+                <i class="fa-regular fa-user test"></i>
                 
-              </div>
-              </div>            
-            </div>            
-        </div>
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item register" href="register.html"
+                    >Register</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item login" href="login.html">Login</a>
+                </li>
+                <!-- <li>
+                  <a class="dropdown-item  d-none" href="wishlist.html">Favorites</a>
+                </li> -->
+                <li>
+                  <a class="dropdown-item logout d-none" href="#">Logout</a>
+                </li>
+              </ul>
+            </div>
+            <a href="wishlist.html"
+              ><i class="fa-regular fa-heart wishlistpageicon font"></i>Wishlist</a
+            >
+            <a href="basket.html" class="basketIcon">
+              <i class="fa-solid fa-cart-shopping basketpageicon font"></i>
+              <sup>0</sup>
+              Basket</a
+            >
+          </div>
+        </nav>
+      </div>
+
+      <div class="container">
         <div class="row">
-          <div class="featured">
-            <h3>Bestseller</h3>
-            <a class="allproducts" href="./products.html">View all products></a>
+          <div class="products">
+            <div>Evening bags</div>
+            <div>Shoulder bag</div>
+            <div>Backpack</div>
+            <div>Handbag</div>
+            <div>Postman bag</div>
+            <div>Belt bags</div>
           </div>
-          <div class="dropdown-container">
-         
-            <div class="dropdown">
-              <button class="dropdown-btn">Sort by Name</button>
-              <div class="dropdown-content">
-                <button class="btn btn-primary az" type="button">A-Z</button>
-                <button class="btn btn-primary za" type="button">Z-A</button>
-              </div>
-            </div>
-          
-           
-            <div class="search-box">
-              <input type="text" class="search-input" placeholder="Search...">
-              <button class="btn btn-success search-btn">Search</button>
-              <ul class="search-results"></ul>
-            </div>
-         
-            <div class="dropdown">
-              <button class="dropdown-btn">Sort by Price</button>
-              <div class="dropdown-content">
-                <button class="btn btn-info low-to-high" type="button">Low-to-High</button>
-                <button class="btn btn-info high-to-low" type="button">High-to-Low</button>
+        </div>
+      </div>
+
+      <!-- !filter -->
+
+      <!-- <div class="row">
+        <div class="control-panel">
+          <div>
+            <button class="btn btn-primary az" type="button">A-Z</button>
+            <button class="btn btn-primary za" type="button">Z-A</button>
+          </div>
+          <div class="search-box">
+            <input placeholder="search..." type="text" class="search-input" />
+            <button type="" class="btn btn-success search-btn">Search</button>
+          </div>
+          <div>
+            <button class="btn btn-info low-to-high" type="button">
+              Low-to-High
+            </button>
+            <button class="btn btn-info high-to-low" type="button">
+              High-to-LoW
+            </button>
+          </div>
+        </div>
+      </div> -->
+    </div>
+
+    <div class="sliderContainer">
+      <div class="slides">
+        <div class="slide">
+          <div class="container">
+            <div class="start col-lg-12 col-md-12 col-sm-12">
+              <div class="row">
+                <div class="main col-lg-6 col-md-12 col-sm-12">
+                  <span>30% off</span>
+                  <h1>Handbag products</h1>
+                  <p>
+                    It is a long established fact that a reader will be
+                    distracted by the readable content expound the actual
+                    teachings of the great explorer
+                  </p>
+                  <br /><br /><br />
+                  <button>Shop now</button>
+                </div>
+                <div class="bagsIMG col-lg-6 col-md-12 col-sm-12">
+                  <img
+                    class="womBagImg"
+                    src="./assets/images/7771326b48a2887aa224f1621090d07b 1.png"
+                    alt=""
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
+
+      </div>
+      <div class="prev"><i class="bi bi-arrow-left-circle"></i></div>
+      <div class="next"><i class="bi bi-arrow-right-circle"></i></div>
     </div>
-<section id="products">
+
+    <section id="payment">
+      <div class="container">
+        <div class="row d-flex">
+          <div class="paymentCards col-lg-3 col-md-6 col-sm-12">
+            <img src="./assets/images/Group 25545.png" alt="" />
+          </div>
+          <div class="paymentCards col-lg-3 col-md-6 col-sm-12">
+            <img
+              src="./assets/images/4bd8bc46-6b64-4397-99d3-029898ef3af1.png"
+              alt=""
+            />
+          </div>
+          <div class="paymentCards col-lg-3 col-md-6 col-sm-12">
+            <img
+              src="./assets/images/f53ebef6-b136-436a-9951-c7126f7225e6.png"
+              alt=""
+            />
+          </div>
+          <div class="paymentCards col-lg-3 col-md-6 col-sm-12">
+            <img
+              src="./assets/images/1e11284f-b364-4e73-87dc-2dccce036f96.png"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </section>
     <div class="container">
-        <div class="row">
-            <div class="cards">
-        
-            </div>
+      <div class="row">
+        <div class="featuredStart">
+          <h1 class="viewAllh col-lg-6 col-md-12 col-sm-12">
+            Bestseller
+          </h1>
+          <div class="col-lg-6 col-md-12 col-sm-12 textLeft">
+            <a href="products.html" class="allProduct">
+              View all products <i class="fa-solid fa-chevron-right"></i>
+            </a>
+          </div>
         </div>
+      </div>
     </div>
-</section>
-<script
+
+    <section id="products">
+      <div class="container">
+        <div class="row">
+          <!-- !saxla -->
+          <div class="viewCard">
+            <!-- <div class="card slice">
+            <i class="fa-regular fa-heart card-heart"></i>
+            <div class="card-image">
+              <img
+                src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
+              />
+            </div>
+            <div class="starArea">
+              <i class="fa-solid fa-star starCard"></i
+              ><i class="fa-solid fa-star starCard"></i
+              ><i class="fa-solid fa-star starCard"></i
+              ><i class="fa-solid fa-star starCard"></i
+              ><i class="fa-solid fa-star starCard"></i>
+            </div>
+            <div class="card-content">
+              <h2 class="card-title">Fjallraven - Foldsack No. 1 Ba ...</h2>
+              <div class="card-footer">
+                <span class="card-price">$109.95</span>
+                <div class="card-rating">
+                  <span>3.9</span><span>(120)</span>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary add-to-cart">Add to card</button>
+          </div>
+          <div class="card slice">
+            <i class="fa-regular fa-heart card-heart"></i>
+            <div class="card-image">
+              <img
+                src="https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg"
+              />
+            </div>
+            <div class="starArea">
+              <i class="fa-solid fa-star starCard"></i
+              ><i class="fa-solid fa-star starCard"></i
+              ><i class="fa-solid fa-star starCard"></i
+              ><i class="fa-solid fa-star starCard"></i
+              ><i class="fa-solid fa-star starCard"></i>
+            </div>
+            <div class="card-content">
+              <h2 class="card-title">Mens Casual Premium Slim Fit T ...</h2>
+              <div class="card-footer">
+                <span class="card-price">$22.3</span>
+                <div class="card-rating">
+                  <span>4.1</span><span>(259)</span>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary add-to-cart">Add to card</button>
+          </div>
+          <div class="card slice">
+            <i class="fa-regular fa-heart card-heart"></i>
+            <div class="card-image">
+              <img
+                src="https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg"
+              />
+            </div>
+            <div class="starArea">
+              <i class="fa-solid fa-star starCard"></i
+              ><i class="fa-solid fa-star starCard"></i
+              ><i class="fa-solid fa-star starCard"></i
+              ><i class="fa-solid fa-star starCard"></i
+              ><i class="fa-solid fa-star starCard"></i>
+            </div>
+            <div class="card-content">
+              <h2 class="card-title">Mens Cotton Jacket ...</h2>
+              <div class="card-footer">
+                <span class="card-price">$55.99</span>
+                <div class="card-rating">
+                  <span>4.7</span><span>(500)</span>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary add-to-cart">Add to card</button>
+          </div> -->
+          </div>
+
+          <div class="cards"></div>
+
+          <!-- <div class="card">
+              <div class="card-image">
+                <img
+                  src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
+                  alt="Fjallraven Backpack"
+                />
+              </div>
+              <div class="card-content">
+                <h2 class="card-title">Fjallraven - Foldsack No. 1 Backpack</h2>
+                <p class="card-category">Category: Men's Clothing</p>
+                <p class="card-description">
+                  Your perfect pack for everyday use and walks in the forest.
+                  Stash your laptop (up to 15 inches) in the padded sleeve.
+                </p>
+                <div class="card-footer">
+                  <span class="card-price">$109.95</span>
+                  <div class="card-rating">
+                    <span>⭐ 3.9</span>
+                    <span>(120 reviews)</span>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="footHead">
+            <h1 class="footHeadText">Snobella</h1>
+          </div>
+        </div>
+      </div>
+      <section id="footBottom">
+        <div class="container">
+          <div class="row">
+            <div class="footBottomLeft col-lg-6 col-md-12 col-sm-12">
+              <p class="botText">
+                The wise man therefore always holds selectionThe wise man
+                therefore always rejects pleasures to secure other greater
+              </p>
+
+              <div class="message">
+                <img
+                  class="dark"
+                  src="./assets/icons/4891c2ce-40f6-4791-a65a-ad24f354608e.png"
+                  alt=""
+                />
+                Snobella@gmail.com
+              </div>
+              <div class="phone">
+                <img
+                  src="./assets/icons/1f891ba3-47d1-4374-9222-c2dc7dba0353.png"
+                  alt=""
+                />
+                +748 383 23 14
+              </div>
+              <div class="sendMessege">
+                <img
+                  src="./assets/icons/435d446c-c5a5-49ba-89a6-edcee69fc88d.png"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div class="footBottomRight col-lg-6 col-md-12 col-sm-12">
+              <div class="row">
+                <div class="shopCampanyHelp col-lg-4 col-md-12 col-sm-12">
+                  <p class="dark">Shop</p>
+                  <p class="light">Shoulder Bag</p>
+                  <p class="light">Backpack</p>
+                  <p class="light">Tote Bag</p>
+                  <p class="light">Hand Bag</p>
+                  <p class="light">Evening bags</p>
+                  <p class="light">Purse</p>
+                </div>
+                <div class="shopCampanyHelp col-lg-4 col-md-12 col-sm-12">
+                  <p class="dark">Company</p>
+                  <p class="light">About us</p>
+                  <p class="light">Contact</p>
+                  <p class="light">Terms of Use</p>
+                  <p class="light">Customer service</p>
+                </div>
+                <div class="shopCampanyHelp col-lg-4 col-md-12 col-sm-12">
+                  <p class="dark">Help</p>
+                  <p class="light">FAQ</p>
+                  <p class="light">Delivery</p>
+                  <p class="light">Cancellation of the order</p>
+                  <p class="light">Don't go back</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="footLast">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-md-12 col-sm-12" style="color: #212121bf">
+              © 2020. All rights reserved.
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12 textLeft">
+              <a href=""
+                ><img class="follow" src="./assets/icons/insat.png" alt=""
+              /></a>
+              <a href=""
+                ><img class="follow" src="./assets/icons/face.png" alt=""
+              /></a>
+
+              <a href=""
+                ><img class="follow" src="./assets/icons/whats.png" alt=""
+              /></a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </footer>
+
+    <script
       type="text/javascript"
       src="https://cdn.jsdelivr.net/npm/toastify-js"
     ></script>
-    <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
     <script src="./assets/js/script.js"></script>
-</body>
+  </body>
 </html>

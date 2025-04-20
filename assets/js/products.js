@@ -1,82 +1,89 @@
 
 document.addEventListener("DOMContentLoaded", async () => {
     let users = JSON.parse(localStorage.getItem("users")) || [];
-    const getPoducts = async () => {
-      let response = await axios.get('https://fakestoreapi.com/products');
+  
+    const getProducts = async () => {
+      let response = await axios("https://fakestoreapi.com/products");
       let products = response.data;
-      localStorage.setItem("products", JSON.stringify(products)); 
       return products;
     };
-    let products = JSON.parse(localStorage.getItem("products")) || await getPoducts();
-    let filteredProducts = JSON.parse(localStorage.getItem("filteredProducts")) || [...products];
-    
+    let products = await getProducts();
+    let filteredProducts = [...products];
   
     let loginBtn = document.querySelector(".login");
     let registerBtn = document.querySelector(".register");
     let logoutBtn = document.querySelector(".logout");
-    let usernameBtn = document.querySelector(".username");
+    let curentUser = users.find((user) => user.isLogined === true);
+  
     let azBtn = document.querySelector(".az");
     let zaBtn = document.querySelector(".za");
+  
     let searchInput = document.querySelector(".search-input");
-    const searchResultsList = document.querySelector(".search-results");
     let searchBtn = document.querySelector(".search-btn");
+    let searchResultsList = document.querySelector(".search-results");
+  
+    
+  
+  // !filtereme
     let lowToHighBtn = document.querySelector(".low-to-high");
     let highToLowBtn = document.querySelector(".high-to-low");
   
-    lowToHighBtn.addEventListener("click", (e) => {
+    lowToHighBtn?.addEventListener("click", (e) => {
       e.preventDefault();
       filteredProducts = products.sort((a, b) => a.price - b.price);
-      localStorage.setItem("filteredProducts", JSON.stringify(filteredProducts));
       document.querySelector(".cards").innerHTML = "";
       createUserCard(filteredProducts);
+      renderProducts(filteredProducts);
+      
     });
   
-    highToLowBtn.addEventListener("click", () => {
+    highToLowBtn?.addEventListener("click", () => {
       filteredProducts = products.sort((a, b) => b.price - a.price);
-      localStorage.setItem("filteredProducts", JSON.stringify(filteredProducts));
       document.querySelector(".cards").innerHTML = "";
       createUserCard(filteredProducts);
+      renderProducts(filteredProducts);
     });
   
-    azBtn.addEventListener("click", () => {
+    azBtn?.addEventListener("click", () => {
       let filteredProducts = products.sort((a, b) =>
-        
         a.title.localeCompare(b.title)
       );
-      localStorage.setItem("filteredProducts", JSON.stringify(filteredProducts));
       document.querySelector(".cards").innerHTML = "";
       createUserCard(filteredProducts);
+      renderProducts(filteredProducts);
     });
   
-    zaBtn.addEventListener("click", () => {
+    zaBtn?.addEventListener("click", () => {
       let filteredProducts = products.sort((a, b) =>
         b.title.localeCompare(a.title)
       );
-      localStorage.setItem("filteredProducts", JSON.stringify(filteredProducts));
       document.querySelector(".cards").innerHTML = "";
       createUserCard(filteredProducts);
+      renderProducts(filteredProducts);
     });
   
-    searchBtn.addEventListener("click", () => {
-      let searchValue = searchInput.value.trim();
-      let filteredProducts = products.filter((product) =>
-        product.title.toLowerCase().includes(searchValue.toLowerCase())
-      );
-      localStorage.setItem("filteredProducts", JSON.stringify(filteredProducts));
-      document.querySelector(".cards").innerHTML = "";
-      createUserCard(filteredProducts);
-      updateSearchResults(filteredProducts)   
-    });
-  
-    searchInput.addEventListener("input", () => {
-      let searchValue = searchInput.value.trim();
-      let filteredProducts = products.filter((product) =>
-        product.title.toLowerCase().includes(searchValue.toLowerCase())
+    searchBtn?.addEventListener("click", () => {
+      let searchvalue = searchInput.value.trim();
+      filteredProducts = products.filter((product) =>
+        product.title.toLowerCase().includes(searchvalue.toLowerCase())
       );
       document.querySelector(".cards").innerHTML = "";
       createUserCard(filteredProducts);
       updateSearchResults(filteredProducts)
+      renderProducts(filteredProducts);
     });
+  
+    searchInput?.addEventListener("input", () => {
+      let searchvalue = searchInput.value.trim();
+      filteredProducts = products.filter((product) =>
+        product.title.toLowerCase().includes(searchvalue.toLowerCase())
+      );
+      document.querySelector(".cards").innerHTML = "";
+      createUserCard(filteredProducts);
+      updateSearchResults(filteredProducts)
+      renderProducts(filteredProducts);
+    });
+  
   
     function updateSearchResults(filteredProducts) {
       searchResultsList.innerHTML = "";
@@ -85,7 +92,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         let listItem = document.createElement("li");
         listItem.classList.add("search-result-item");
         listItem.textContent = product.title;
-    
+        // let searchArea = document.querySelector(".search-results")
   
   
         let image = document.createElement("div");
@@ -96,231 +103,333 @@ document.addEventListener("DOMContentLoaded", async () => {
         listItem.appendChild(image)
   
         listItem.addEventListener("click", () => {
-          window.location.href = `product_detail.html?id=${product.id}`;
+          window.location.href = `product-detail.html?id=${product.id}`;
         });
         searchResultsList.appendChild(listItem);
       });
     }
   
-  
-    function getCurrentUser() {
-      return users.find((user) => user.isLogined === true);
-    }
+    // searchInput.addEventListener("change", () => {
+    //   let searchvalue = searchInput.value.trim();
+    //   filteredProducts = products.filter((product) =>
+    //     product.title.toLowerCase().includes(searchvalue.toLowerCase())
+    //   );
+    //   document.querySelector(".cards").innerHTML = "";
+    //   createUserCard(filteredProducts);
+    // });
   
     function updateUserStatus() {
-      let currentUser = getCurrentUser();
-      if (currentUser) {
-        usernameBtn.textContent = currentUser.username;
+      let users = JSON.parse(localStorage.getItem("users")) || [];
+      let isLogined = users.find((user) => user.isLogined === true);
+      let usernameBtn = document.querySelector(".username");
+      if (isLogined) {
+        usernameBtn.textContent = isLogined.username;
         loginBtn.classList.add("d-none");
         registerBtn.classList.add("d-none");
         logoutBtn.classList.remove("d-none");
       } else {
-        usernameBtn.textContent = "Username";
+        logoutBtn.classList.add("d-none");
         loginBtn.classList.remove("d-none");
         registerBtn.classList.remove("d-none");
-        logoutBtn.classList.add("d-none");
+        usernameBtn.textContent = "Username";
       }
     }
   
+
+
     function logout() {
-      let currentUser = getCurrentUser();
-      if (currentUser) {
-        currentUser.isLogined = false;
+      if (curentUser) {
+        curentUser.isLogined = false;
         localStorage.setItem("users", JSON.stringify(users));
         updateUserStatus();
-        updateWishlistIcons();
-        toast("You have successfully logged out.");
-        setTimeout(() => window.location.reload(), 1000);
+        
+       
       }
     }
   
     logoutBtn.addEventListener("click", logout);
   
-    function updateWishlistIcons() {
-      let heartIcons = document.querySelectorAll(".card-heart");
-      heartIcons.forEach((icon) => {
-        icon.classList.add("far");
-        icon.classList.remove("fas");
-      });
-    }
-  
-    function promise() {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          if (products && products.length > 0) {
-            resolve(products);
-          } else {
-            reject("mehsullar tapilmadi");
-          }
-        }, 500);
-      });
-    }
-    let currentIndex = 0;
     function createUserCard(filteredProducts) {
-      let currentUser = getCurrentUser();
-      const cardsContainer = document.querySelector(".cards");
-      cardsContainer.innerHTML = "";
-  
-      promise().then(() => {
-        filteredProducts.forEach((product) => {
-          let card = document.createElement("div");
-          card.classList.add("card");
-  
-          card.addEventListener("click", () => {
-            window.location.href = `product_detail.html?id=${product.id}`;
-          });
-          let image = document.createElement("div");
-          image.classList.add("card-image");
-          let img = document.createElement("img");
-  
-          let cardContent = document.createElement("div");
-          cardContent.classList.add("card-content");
-  
-          let cardTitle = document.createElement("h2");
-          cardTitle.classList.add("card-title");
-  
-          let category = document.createElement("h2");
-          category.classList.add("card-category");
-  
-          let cardFooter = document.createElement("div");
-          cardFooter.classList.add("card-footer");
-  
-          let price = document.createElement("span");
-          price.classList.add("card-price");
-  
-          let rating = document.createElement("div");
-          rating.classList.add("card-rating");
-  
-          let ratingStar = document.createElement("span");
-          let count = document.createElement("span");
-  
-          let heart = document.createElement("i");
-          heart.classList.add("far", "fa-heart", "card-heart");
-  
-          if (
-            currentUser &&
-            currentUser.wishlist.some((item) => item.id === product.id)
-          ) {
-            heart.classList.remove("far");
-            heart.classList.add("fas");
-          }
-  
-          heart.addEventListener("click", (e) => {
-            e.stopPropagation();
-            toggleAddWishList(product.id, heart);
-          });
-  
-          let addToCart = document.createElement("button");
-          addToCart.classList.add("btn", "btn-light", "add-to-cart");
-          addToCart.textContent = "Add Basket";
-  
-          addToCart.addEventListener("click", (e) => {
-            e.stopPropagation();
-            addBasket(product.id);
-          });
-  
-          rating.append(ratingStar, count);
-          cardFooter.append(price, rating);
-          cardContent.append(cardTitle, category, cardFooter);
-          image.append(img);
-          card.append(heart, image, cardContent, addToCart);
-          cardsContainer.append(card);
-  
-          img.src = product.image;
-          cardTitle.textContent = product.title.slice(0, 15) + " ...";
-          category.textContent = product.category;
-          price.textContent = `$${product.price}`;
-          ratingStar.textContent = product.rating.rate;
-          count.textContent = product.rating.count;
+      filteredProducts.forEach((product) => {
+        let card = document.createElement("div");
+        card.classList.add("card");
+        card.addEventListener("click", () => {
+          window.location.href = `product_detail.html?id=${product.id}`;
         });
-      
+  
+        let image = document.createElement("div");
+        image.classList.add("card-image");
+        let img = document.createElement("img");
+  
+        let cardContent = document.createElement("div");
+        cardContent.classList.add("card-content");
+        let cardTitle = document.createElement("h2");
+        cardTitle.classList.add("card-title");
+        let category = document.createElement("p");
+        category.classList.add("card-category");
+        // let cardDescription = document.createElement("p");
+        // cardDescription.classList.add("card-description");
+        let cardFooter = document.createElement("div");
+        cardFooter.classList.add("card-footer");
+        let price = document.createElement("span");
+        price.classList.add("card-price");
+        let rating = document.createElement("div");
+        rating.classList.add("card-rating");
+        let ratingStar = document.createElement("span");
+        let count = document.createElement("span");
+        let heart = document.createElement("i");
+        let starArea =document.createElement("div");
+        starArea.classList.add("starArea")
+         let star = document.createElement("i")
+         star.classList.add("fa-solid", "fa-star", "starCard")
+  
+         let star1 = document.createElement("i")
+         star1.classList.add("fa-solid", "fa-star", "starCard")
+  
+         let star2 = document.createElement("i")
+         star2.classList.add("fa-solid", "fa-star", "starCard")
+  
+         let star3 = document.createElement("i")
+         star3.classList.add("fa-solid", "fa-star", "starCard")
+  
+         let star4 = document.createElement("i")
+         star4.classList.add("fa-solid", "fa-star", "starCard")
+         starArea.append(star,star1,star2,star3,star4)
+  
+  
+        heart.classList.add("fa-regular", "fa-heart", "card-heart");
+        heart.addEventListener("click", (e) => {
+          e.stopPropagation();
+          toggleAddWishlist(product.id, heart);
+        });
+  
+        let addToCart = document.createElement("button");
+        addToCart.classList.add("btn", "btn-primary", "add-to-cart");
+        addToCart.textContent = "Add to card";
+  
+        addToCart.addEventListener("click", (e) => {
+          e.stopPropagation();
+          addBasket(product.id);
+        });
+  
+  
+        // let viewAll = document.querySelector(".allProduct");
+  
+        // viewAll.addEventListener("click", () => {
+        //   let slices = document.querySelectorAll(".slice");
+        //   let cards = document.querySelector(".cards");
+        //   cards.style.display="flex"
+          
+        //   slices.forEach(slice => {
+        //     slice.style.display = "none";
+            
+        //   });
+        // });
+  
+        rating.append(ratingStar, count);
+        cardFooter.append(price, rating);
+        cardContent.append(cardTitle,  cardFooter);
+        image.append(img);
+        card.append(heart, image,starArea, cardContent, addToCart);
+        let cards = document.querySelector(".cards");
+        cards?.append(card);
+        
+  
+        img.src = product.image;
+        cardTitle.textContent = product.title.slice(0, 30) + " ...";
+        category.textContent = product.category;
+        price.textContent = `$${product.price}`;
+        ratingStar.textContent = product.rating.rate;
+        count.textContent = `(${product.rating.count})`;
       });
     }
+    
+
+//! filter
+function renderProducts(productsToRender) {
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    let isLogined = users.find((user) => user.isLogined === true);
+    let currentUser = isLogined ? isLogined : null;
+
+    document.querySelector(".cards").innerHTML = ""; 
+    productsToRender.forEach((product) => {
+      let card = document.createElement("div");
+      card.classList.add("card");
+
+      card.addEventListener("click", () => {
+        window.location.href = `product_detail.html?id=${product.id}`;
+      });
+
+      let image = document.createElement("div");
+      image.classList.add("card-image");
+
+      let img = document.createElement("img");
+
+      let cardContent = document.createElement("div");
+      cardContent.classList.add("card-content");
+
+      let cardTitle = document.createElement("h2");
+      cardTitle.classList.add("card-title");
+
+      let category = document.createElement("h2");
+      category.classList.add("card-category");
+
+      let cardFooter = document.createElement("div");
+      cardFooter.classList.add("card-footer");
+
+      let price = document.createElement("span");
+      price.classList.add("card-price");
+
+      let rating = document.createElement("div");
+      rating.classList.add("card-rating");
+
+      let ratingStar = document.createElement("span");
+      let count = document.createElement("span");
+        // Rating stars
+    let starArea = document.createElement("div");
+    starArea.classList.add("starArea");
+    let star = document.createElement("i");
+    star.classList.add("fa-solid", "fa-star", "starCard");
+
+    for (let i = 0; i < 5; i++) {
+        let starClone = star.cloneNode(true);
+        starArea.appendChild(starClone);
+    }
+
+      let heart = document.createElement("i");
+      heart.classList.add("far", "fa-heart", "card-heart", "removeCard");
+
+      if (
+        currentUser &&
+        currentUser.wishList.some((item) => item.id === product.id)
+      ) {
+        heart.classList.remove("far");
+        heart.classList.add("fas");
+      }
+
+      heart.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleAddWishlist(product.id, heart);
+      });
+
+      let addToCart = document.createElement("button");
+      addToCart.classList.add("btn", "btn-primary", "add-to-cart");
+      addToCart.textContent = "Add Basket";
+
+      addToCart.addEventListener("click", (e) => {
+        e.stopPropagation();
+        addBasket(product.id);
+      });
+
+      //! start
+
+      rating.append(ratingStar, count);
+      cardFooter.append(price, rating);
+      cardContent.append(cardTitle, category, cardFooter);
+      image.append(img);
+      card.append(heart, image,starArea, cardContent, addToCart);
+      
+      let cards = document.querySelector(".cards");
+      cards.append(card);
+
+      img.src = product.image;
+      cardTitle.textContent = product.title.slice(0, 20) + " ...";
+      category.textContent = product.category;
+
+      price.textContent = `$${product.price}`;
+      ratingStar.textContent = product.rating.rate;
+      count.textContent = `$${product.rating.count}`;
+    });
+  }
+
   
+    function toggleAddWishlist(productId, heartElement) {
+      if (!curentUser) {
+        toast("Please login to add wishlist");
   
-  
-    function toggleAddWishList(productId, heartElement) {
-      let currentUser = getCurrentUser();
-      if (!currentUser) {
-        toast("Please login");
         setTimeout(() => {
           window.location.href = "login.html";
-        }, 1000);
+        }, 2000);
         return;
       }
   
-      let userIndex = users.findIndex((user) => user.id === currentUser.id);
+      let userIndex = users.findIndex((user) => user.id === curentUser.id);
   
-      if (currentUser.wishlist.some((item) => item.id === productId)) {
-        let productIndex = currentUser.wishlist.findIndex(
+      if (curentUser.wishList.some((item) => item.id === productId)) {
+        let productIndex = curentUser.wishList.findIndex(
           (product) => product.id === productId
         );
-        currentUser.wishlist.splice(productIndex, 1);
-        heartElement.classList.add("far");
-        heartElement.classList.remove("fas");
+        curentUser.wishList.splice(productIndex, 1);
+        users[userIndex] = curentUser;
+        localStorage.setItem("users", JSON.stringify(users));
+  
+        heartElement.classList.remove("fa-solid");
+        heartElement.classList.add("fa-regular");
+        window.location.reload()
+  
         toast("Product removed from wishlist");
       } else {
         let product = products.find((product) => product.id === productId);
-        currentUser.wishlist.push(product);
-        heartElement.classList.remove("far");
-        heartElement.classList.add("fas");
+        curentUser.wishList.push(product);
+        users[userIndex] = curentUser;
+        localStorage.setItem("users", JSON.stringify(users));
+  
+        heartElement.classList.remove("fa-regular");
+        heartElement.classList.add("fa-solid");
+  
         toast("Product added to wishlist");
       }
-  
-      users[userIndex] = currentUser;
-      localStorage.setItem("users", JSON.stringify(users));
     }
   
     function addBasket(productId) {
-      let currentUser = getCurrentUser();
-      if (!currentUser) {
-        toast("Please login to add to basket");
+      if (!curentUser) {
+        toast("Please login to add basket");
         setTimeout(() => {
           window.location.href = "login.html";
         }, 1000);
-        return;
       }
   
-      let userIndex = users.findIndex((user) => user.id === currentUser.id);
+      let userIndex = users.findIndex((user) => user.id === curentUser.id);
+  
       if (userIndex === -1) {
         toast("User not found");
         return;
       }
+      let basket = curentUser.basket || [];
+      let exsistProduct = basket.find((product) => product.id === productId);
   
-      let basket = currentUser.basket || [];
-      let existingProduct = basket.find((product) => product.id === productId);
-  
-      if (existingProduct) {
-        existingProduct.count++;
+      if (exsistProduct) {
+        exsistProduct.count++;
       } else {
         let product = products.find((product) => product.id === productId);
         if (product) {
-          basket.push({ ...product, count: 1 });
+          curentUser.basket.push({ ...product, count: 1 });
         }
       }
-      toast("Product add basket");
-      currentUser.basket = basket;
-      users[userIndex] = currentUser;
+      toast("Product added to basket");
+      users[userIndex] = curentUser;
       localStorage.setItem("users", JSON.stringify(users));
       updateBasketCount();
     }
   
     function updateBasketCount() {
-      let currentUser = getCurrentUser();
-      if (currentUser) {
-        let basketElement = document.querySelector(".basketIcon sup");
-        let basketCount = currentUser.basket.reduce(
-          (acc, product) => acc + product.count,
-          0
-        );
-        basketElement.textContent = basketCount;
-      }
+      let basketElement = document.querySelector(".basketIcon sup");
+      let basketCount = curentUser?.basket.reduce(
+        (acc, product) => acc + product.count,
+        0
+      );
+      basketElement.textContent = basketCount;
     }
+  
+   
+    
+  
   
   
     function toast(text) {
       Toastify({
-        text: text,
+        text: `${text}`,
         duration: 1000,
         gravity: "top",
         position: "right",
@@ -329,8 +438,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         },
       }).showToast();
     }
-  
+    renderProducts(filteredProducts);
+    updateBasketCount();
     updateUserStatus();
     createUserCard(filteredProducts);
-    updateBasketCount();
   });
+  

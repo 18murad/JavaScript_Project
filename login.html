@@ -19,14 +19,12 @@
     <div class="container">
       <div class="row">
         <div class="register">
-            <h1>Login</h1>
-            <p>Nor again is there anyone who to enjoy a pleasure that 
-              or pursues or desires to obtain</p>
-          <form>
-       
-        
+          <h1>Login</h1>
+          <p class="titleLog">Nor again is there anyone who to enjoy a pleasure that 
+            or pursues or desires to obtain</p>
+          <form class="form">
             <div class="mb-3">
-              <label for="username" class="form-label">Username </label>
+              <label for="username" class="form-label">Username</label>
               <input
                 type="text"
                 class="form-control"
@@ -35,9 +33,9 @@
                 required
               />
             </div>
-       
+
             <div class="mb-3">
-              <label for="password" class="form-label">Code</label>
+              <label for="password" class="form-label">Password</label>
               <input
                 type="password"
                 class="form-control"
@@ -46,11 +44,13 @@
                 required
               />
             </div>
-            <div>Don't have an account?<a href="register.html">Sign Up</a></div>
-
-            <button type="submit" class="btn btn-primary submit">
-              Sign In
+            <button type="submit" class="btn btn-danger submit">
+              Login
             </button>
+            <div class="logNextReg">
+              Don't have an account yet?
+              <a href="register.html" class="linkReg"> Create now</a>
+            </div>
           </form>
         </div>
       </div>
